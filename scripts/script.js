@@ -2,41 +2,43 @@ let wins = 0
 let ties = 0
 let losses = 0
 
+const rockButton = document.querySelector('.rock')
+const paperButton = document.querySelector('.paper')
+const scissorsButton = document.querySelector('.scissors')
+
+let results = document.querySelector('.results')
+let scores = document.querySelector('.scores')
+scores.setAttribute('style', 'white-space: pre;');
+
+rockButton.addEventListener('click', () => {
+  playRound('Rock', getComputerChoice())
+})
+
+paperButton.addEventListener('click', () => {
+  playRound('Paper', getComputerChoice())
+})
+
+scissorsButton.addEventListener('click', () => {
+  playRound('Scissors', getComputerChoice())
+})
+
 function getComputerChoice() {
   let choices = ['Rock', 'Paper', 'Scissors']
   //Return random choice from array
   return choices[Math.floor(Math.random() * choices.length)]
 }
 
-function getPlayerChoice() {
-  let isValid = false
-  let choice = ''
-  while (isValid === false) {
-    //Prompt player choice and format 
-    choice = prompt("Rock, paper, or scissors?")
-    choice = choice.toLowerCase().trim()
-    choice = choice.charAt(0).toUpperCase() + choice.slice(1)
-    //Validate player choice
-    if (choice !== 'Rock' && choice !== 'Paper' && choice !== 'Scissors') {
-      console.log("Invalid player selection. Try again...")
-    } else {
-      isValid = true
-    }
-  }
-  return choice
-}
-
 function playRound(playerSelection, computerSelection) {
-  console.log("Player: " + playerSelection + " -- Computer: " + computerSelection)
-
+  //Set round result string options based on player and computer choices
   let winString = "You Win! " + playerSelection + " beats " + computerSelection
   let loseString = "You Lose! " + computerSelection + " beats " + playerSelection
   let tieString = "It's a tie. " + playerSelection + " vs " + computerSelection
+  let resultString = ''
 
   let win = false
   let tie = false
 
-    //Player winning moves
+  //Player winning moves
   if (playerSelection === 'Rock' && computerSelection === 'Scissors') {
     win = true
   } else if (playerSelection === 'Paper' && computerSelection === 'Rock') {
@@ -47,51 +49,45 @@ function playRound(playerSelection, computerSelection) {
   } else if (playerSelection === computerSelection) {
     tie = true
   }
+  //Else player loses
 
-  //Return results
+  //Update score and the result string based on round results
   if (win) {
     wins++
-    console.log(winString)
-    return winString
+    resultString = winString
   } else if (tie) {
     ties++
-    console.log(tieString)
-    return tieString
+    resultString = tieString
   } else {
     losses++
-    console.log(loseString)
-    return loseString
+    resultString = loseString
+  }
+  displayScores()
+  results.textContent = resultString
+
+  if (wins >= 5) {
+    setTimeout(function () {
+      alert("You won the game! Play again?")
+      newGame()
+    })
+  } else if (losses >= 5) {
+    setTimeout(function () {
+      alert("You lost the game! Play again?")
+      newGame()
+    })
   }
 }
 
-function game() {
+function displayScores() {
+  scores.textContent = 'Player wins: ' + wins + '\r\nComputer wins: ' + losses
+}
+
+//Reset win/loss/tie counters to 0, clear results 
+function newGame() {
   wins = 0
   ties = 0
   losses = 0
-  for(let i = 0; i < 5; i++) {
-    let playerSelection = getPlayerChoice()
-    let computerSelection = getComputerChoice()
-    playRound(playerSelection, computerSelection)
-  }
-  let winsString = ' wins, '
-  if (wins === 1) {
-    winsString = ' win, '
-  }
-  let lossesString = ' losses, and '
-  if (losses === 1) {
-    lossesString = ' loss, and '
-  }
-  let tiesString = ' ties'
-  if (ties === 1) {
-    tiesString = ' tie'
-  }
 
-  let totals = wins + winsString + losses + lossesString + ties + tiesString
-  if (wins > losses) {
-    console.log("You win: " + totals)
-  } else if (wins < losses) {
-    console.log("You lose: " + totals)
-  } else {
-    console.log("Tie game: " + totals)
-  }
+  results.textContent = ''
+  scores.textContent = 'Player wins: ' + wins + '\r\nComputer wins: ' + losses
 }
