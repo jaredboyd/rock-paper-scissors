@@ -79,7 +79,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function displayScores() {
-  scores.textContent = 'Player wins: ' + wins + '\r\nComputer wins: ' + losses
+  scores.textContent = 'Player wins: ' + wins + '    Computer wins: ' + losses
 }
 
 //Reset win/loss/tie counters to 0, clear results 
@@ -89,5 +89,5 @@ function newGame() {
   losses = 0
 
   results.textContent = ''
-  scores.textContent = 'Player wins: ' + wins + '\r\nComputer wins: ' + losses
+  displayScores()
 }
