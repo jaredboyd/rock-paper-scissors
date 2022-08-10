@@ -12,22 +12,61 @@ h1 {
   margin-top: 80px;
 }
 
+p {
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
 button {
-  margin: 20px;
+  /*margin: 20px;
   width: 100px;
   height: 50px;
   border-radius: 5px;
-  background-color: #fdca6b;
+  background-color: #fdca6b;*/
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
+  font-size: 44px;
+  margin: 30px;
 }
 
 button:hover {
-  transform: scale(1.1);
-  transition-duration: .1s;
+  transform: scale(1.2);
+  /*transition-duration: .1s;*/
+}
+
+button:active {
+  transform: scale(1.0);
 }
 
 .buttons {
   display: flex;
   justify-content: center;
+}
+
+.selections {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.selection {
+  margin: 10px;
+  border: solid 5px white;
+  padding: 0px 0px 80px;
+  border-radius: 10px;
+  width: 200px;
+  height: 100px;
+}
+
+#playerSelection {
+  font-size: 44px;
+}
+
+#computerSelection {
+  font-size: 44px;
 }
 
 .results {

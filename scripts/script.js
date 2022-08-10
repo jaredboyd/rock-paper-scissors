@@ -29,6 +29,12 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
+  //Show player and computer selections in their selection windows
+  let playerSelectionIcon = setIcon(playerSelection)
+  let computerSelectionIcon = setIcon(computerSelection)
+  document.getElementById("playerSelection").innerText = String.fromCodePoint(playerSelectionIcon)
+  document.getElementById("computerSelection").innerText = String.fromCodePoint(computerSelectionIcon)
+
   //Set round result string options based on player and computer choices
   let winString = "You Win! " + playerSelection + " beats " + computerSelection
   let loseString = "You Lose! " + computerSelection + " beats " + playerSelection
@@ -88,6 +94,22 @@ function newGame() {
   ties = 0
   losses = 0
 
+  document.getElementById("playerSelection").innerText = ''
+  document.getElementById("computerSelection").innerText = ''
+
+
   results.textContent = ''
   displayScores()
+}
+
+function setIcon(name) {
+  if (name === 'Rock') {
+    return '0x270A'
+  } else if (name === 'Paper') {
+    return '0x1F91A'
+  } else if (name === 'Scissors') {
+    return '0x270C'
+  } else {
+    return 'ERROR'
+  }
 }
